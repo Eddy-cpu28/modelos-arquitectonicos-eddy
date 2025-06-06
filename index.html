@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Modelos arquitectónicos Eddy</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+
+  <!-- Modal formulario -->
+  <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg p-8 max-w-md w-full shadow-lg">
+      <h2 class="text-2xl font-bold mb-6 text-center">Bienvenido, por favor ingresa tus datos</h2>
+      <form id="formulario" class="space-y-4">
+        <input type="text" id="nombre" placeholder="Nombre" required
+               class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        <input type="email" id="correo" placeholder="Correo electrónico" required
+               class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        <input type="tel" id="telefono" placeholder="Número de teléfono" required pattern="[0-9]{7,15}"
+               class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700 transition">
+          Enviar
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Contenido principal oculto hasta completar el formulario -->
+  <div id="contenido" class="hidden">
+    <h1 id="titulo" class="text-4xl font-bold text-center mb-8">Modelos arquitectónicos Eddy</h1>
+
+    <!-- Botones de filtro -->
+    <div class="flex justify-center gap-4 mb-8">
+      <button class="filter-btn bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" data-categoria="todos">Todos</button>
+      <button class="filter-btn bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" data-categoria="moderno">Moderno</button>
+      <button class="filter-btn bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" data-categoria="clasico">Clásico</button>
+      <button class="filter-btn bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" data-categoria="urbano">Urbano</button>
+    </div>
+
+    <!-- Galería -->
+    <div id="galeria" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-7xl mx-auto">
+      <div class="proyecto bg-white rounded shadow p-4" data-categoria="moderno">
+        <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=400&q=80" alt="Proyecto Moderno 1" class="rounded mb-4" />
+        <h2 class="text-xl font-semibold">Casa Moderna 1</h2>
+        <p class="text-gray-600">Diseño minimalista y líneas limpias.</p>
+      </div>
+
+      <div class="proyecto bg-white rounded shadow p-4" data-categoria="clasico">
+        <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=400&q=80" alt="Proyecto Clásico 1" class="rounded mb-4" />
+        <h2 class="text-xl font-semibold">Casa Clásica 1</h2>
+        <p class="text-gray-600">Arquitectura tradicional y elegante.</p>
+      </div>
+
+      <div class="proyecto bg-white rounded shadow p-4" data-categoria="urbano">
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Proyecto Urbano 1" class="rounded mb-4" />
+        <h2 class="text-xl font-semibold">Edificio Urbano 1</h2>
+        <p class="text-gray-600">Espacios modernos en la ciudad.</p>
+      </div>
+
+      <div class="proyecto bg-white rounded shadow p-4" data-categoria="moderno">
+        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=400&q=80" alt="Proyecto Moderno 2" class="rounded mb-4" />
+        <h2 class="text-xl font-semibold">Casa Moderna 2</h2>
+        <p class="text-gray-600">Uso innovador de materiales.</p>
+      </div>
+
+      <div class="proyecto bg-white rounded shadow p-4" data-categoria="clasico">
+        <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=400&q=80" alt="Proyecto Clásico 2" class="rounded mb-4" />
+        <h2 class="text-xl font-semibold">Casa Clásica 2</h2>
+        <p class="text-gray-600">Detalles ornamentales y tradición.</p>
+      </div>
+
+      <div class="proyecto bg-white rounded shadow p-4" data-categoria="urbano">
+        <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=400&q=80" alt="Proyecto Urbano 2" class="rounded mb-4" />
+        <h2 class="text-xl font-semibold">Edificio Urbano 2</h2>
+        <p class="text-gray-600">Diseño funcional para espacios urbanos.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById('modal');
+    const contenido = document.getElementById('contenido');
+    const formulario = document.getElementById('formulario');
+
+    formulario.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const nombre = document.getElementById('nombre').value.trim();
+      const correo = document.getElementById('correo').value.trim();
+      const telefono = document.getElementById('telefono').value.trim();
+
+      if (!nombre || !correo || !telefono) {
+        alert('Por favor, completa todos los campos.');
+        return;
+      }
+
+      modal.style.display = 'none';
+      contenido.classList.remove('hidden');
+    });
+
+    const botonesFiltro = document.querySelectorAll('.filter-btn');
+    const proyectos = document.querySelectorAll('.proyecto');
+
+    botonesFiltro.forEach(boton => {
+      boton.addEventListener('click', () => {
+        const categoria = boton.getAttribute('data-categoria');
+        if (categoria === 'todos') {
+          proyectos.forEach(proyecto => proyecto.style.display = 'block');
+        } else {
+          proyectos.forEach(proyecto => {
+            proyecto.style.display = proyecto.getAttribute('data-categoria') === categoria ? 'block' : 'none';
+          });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
